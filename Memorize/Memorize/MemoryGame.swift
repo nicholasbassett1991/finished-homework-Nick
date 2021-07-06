@@ -11,11 +11,14 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
     
     private(set) var cards: Array<Card>
     
+    private(set) var points: Int = 0
+    
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
     get {cards.indices.filter({cards[$0].isFaceUp}).oneAndOnly }
     set {cards.indices.forEach{cards[$0].isFaceUp = ($0 == newValue) } }
     }
     
+
     
     mutating func choose(_ card: Card) {
     
@@ -26,6 +29,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
+                    addPoints(points: 1)
                 }
                 cards[chosenIndex].isFaceUp = true
             } else {
@@ -38,18 +42,30 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         cards.shuffle()
     }
     
+    mutating func addPoints(points:Int){
+        self.points += points
+    }
+    
+    var hasBeenSeen = false
+    
+    var isInstantMatch = false
+    
+
+    
     init(numberOfParisOfCards: Int, createCardContent: (Int) -> CardContent){
         cards = []
-        
+
         for pairIndex in 0..<numberOfParisOfCards {
             let content: CardContent = createCardContent(pairIndex)
             cards.append(Card(content:content, id:pairIndex*2))
             cards.append(Card(content:content, id:pairIndex*2+1))
         }
         cards.shuffle()
+        
     }
     
     struct Card: Identifiable {
+    
         var isFaceUp = false {
             didSet {
                 if isFaceUp {
@@ -66,8 +82,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         }
         let content: CardContent
         let id: Int
+        
     
-   
         var bonusTimeLimit: TimeInterval = 6
 
         private var faceUpTime: TimeInterval {

@@ -12,35 +12,39 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     
-    static var themeSelected = 0
     
     typealias Card = MemoryGame<String>.Card
-    private static let vehicleEmojis = ["🚂","🚀","🚁","🚜", "🚘", "🚌", "🛵", "🏍", "🚍",
-    "🚛", "🛴", "🚊", "🚢", "🛺", "🚑", "🚲", "🚒", "🚕", "🚞", "🚐",
-    "🚗", "🛫", "🛩", "🚓"]
     
-    private static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame<String>(numberOfParisOfCards: 8) {
-        pairIndex in vehicleEmojis[pairIndex]
+ 
+    private static func createMemoryGame(theme: Themes) -> MemoryGame<String> {
+        MemoryGame<String>(numberOfParisOfCards: theme.cardPairCount) {
+            pairIndex in currentEmojiTheme.emojiContent[pairIndex]
         }
     }
-    
-    private static func getMemoryGameTheme(selectedTheme: Int) -> Themes {
 
-        let emojiThemes = [
-            Themes(themeId: 0, theme: "Animals", emojiContent: Themes.animalEmoji, cardPairCount: 4, themeColor: .orange),
-            Themes(themeId: 1, theme:"Bugs", emojiContent: Themes.bugEmojis, cardPairCount: 8, themeColor: .red),
-            Themes(themeId: 2, theme:"Food", emojiContent: Themes.foodEmojis, cardPairCount: 9, themeColor: .green),
-            Themes(themeId: 3, theme:"Objects", emojiContent: Themes.objectEmojis, cardPairCount: 10, themeColor: .pink),
-            Themes(themeId: 4, theme:"Sea Life", emojiContent: Themes.seaLifeEmojis, cardPairCount: 5, themeColor: .blue),
-            Themes(themeId: 5, theme:"Vehicles", emojiContent: vehicleEmojis, cardPairCount: 7, themeColor: .purple)]
-        
-        return emojiThemes[selectedTheme]
-        
+
+    
+    private static func changeEmojiMemoryGame(){
+        let range = 0...5
+        let emojiPicker = range.randomElement() ?? 0
+        currentEmojiTheme = emojiThemes[emojiPicker]
     }
-
     
-    @Published private var model = createMemoryGame()
+    static var currentEmojiTheme: Themes = emojiThemes[0]
+
+ 
+        static let emojiThemes = [
+            Themes(themeId: 0, theme: "Animals", emojiContent: Themes.animalEmoji, cardPairCount: 10, themeColor: .orange),
+            Themes(themeId: 1, theme:"Bugs", emojiContent: Themes.bugEmojis, cardPairCount: 7, themeColor: .red),
+            Themes(themeId: 2, theme:"Food", emojiContent: Themes.foodEmojis, cardPairCount: 6, themeColor: .green),
+            Themes(themeId: 3, theme:"Objects", emojiContent: Themes.objectEmojis, cardPairCount: 8, themeColor: .pink),
+            Themes(themeId: 4, theme:"Sea Life", emojiContent: Themes.seaLifeEmojis, cardPairCount: 5, themeColor: .blue),
+            Themes(themeId: 5, theme:"Vehicles", emojiContent: Themes.vehicleEmojis, cardPairCount: 4, themeColor: .purple)]
+        
+
+
+
+    @Published private var model = createMemoryGame(theme: currentEmojiTheme)
     
     var cards: Array<MemoryGame<String>.Card>{
         model.cards
@@ -52,9 +56,13 @@ class EmojiMemoryGame: ObservableObject {
         model.choose(card)
     }
     
+    func points(){
+        model.points
+    }
+    
     func startNewGame(){
-        model = EmojiMemoryGame.createMemoryGame()
-            
+        EmojiMemoryGame.changeEmojiMemoryGame()
+        model = EmojiMemoryGame.createMemoryGame(theme: EmojiMemoryGame.currentEmojiTheme)
     }
     
     func shuffle(){
@@ -62,6 +70,11 @@ class EmojiMemoryGame: ObservableObject {
     }
     
     func restart(){
-        model = EmojiMemoryGame.createMemoryGame()
+        model = EmojiMemoryGame.createMemoryGame(theme: EmojiMemoryGame.currentEmojiTheme)
+        
     }
+    
+
+
+    
 }

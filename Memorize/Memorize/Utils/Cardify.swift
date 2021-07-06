@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Cardify: AnimatableModifier {
+    
+    
 
     init(isFaceUp:Bool) {
         rotation = isFaceUp ? 0 : 180
@@ -30,6 +32,8 @@ struct Cardify: AnimatableModifier {
                 .foregroundColor(.white)
                 shape.strokeBorder(lineWidth: DrawingConstants.lineWidth)
                 
+                    
+                
             } else {
                 shape
                     .fill()
@@ -42,7 +46,7 @@ struct Cardify: AnimatableModifier {
             axis: (0, 1,0))
         
     }
-    private struct DrawingConstants {
+    struct DrawingConstants {
         static let cornerRadius: CGFloat = 10
         static let lineWidth: CGFloat = 3
 

@@ -16,15 +16,21 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         ZStack(alignment: .bottom){
             VStack{
+                titleText
                 gameBody
+                deckBody
+                Spacer()
                 HStack {
+                    Spacer()
                     restart
                     Spacer()
                     shuffle
+                    Spacer()
+                    newGame
+                    Spacer()
             }
             .padding(.horizontal)
         }
-            deckBody
         }
         .padding()
     }
@@ -72,7 +78,7 @@ struct EmojiMemoryGameView: View {
             }
         }
   
-            .foregroundColor(.red)
+        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
     }
     
     var deckBody: some View {
@@ -86,7 +92,7 @@ struct EmojiMemoryGameView: View {
             }
         }
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-        .foregroundColor(CardConstants.color)
+        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
         .onTapGesture {
             for card in game.cards {
             withAnimation(dealingAnimation(for: card)){
@@ -96,12 +102,42 @@ struct EmojiMemoryGameView: View {
         }
     }
     
+    var titleText: some View {
+        Text(EmojiMemoryGame.currentEmojiTheme.theme)
+            .bold()
+            .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+    }
+    
     var shuffle: some View {
         Button("Shuffle"){
             withAnimation(.easeInOut(duration: 1)){
                 game.shuffle()
             }
         }
+     
+        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .padding(5)
+        .overlay(Capsule(style: .continuous)
+                    .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor, lineWidth: 5))
+        
+    }
+    
+    var pointsTotal: some View {
+        Text(game.points() as String)
+    }
+    
+    
+    var newGame: some View {
+        Button("New Game") {
+            withAnimation(.easeInOut(duration:1)){
+                dealt = []
+                game.startNewGame()
+            }
+        }
+        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .padding(5)
+        .overlay(Capsule(style: .continuous)
+                    .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor, lineWidth: 5))
     }
     
     var restart: some View {
@@ -111,6 +147,11 @@ struct EmojiMemoryGameView: View {
                 game.restart()
             }
         }
+
+        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .padding(5)
+        .overlay(Capsule(style: .continuous)
+                    .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor, lineWidth: 5))
     }
 }
 
@@ -171,8 +212,17 @@ private struct DrawingConstants {
     static let fontSize: CGFloat = 32
 }
 
+
+
+
+//.font(.title)
+//.foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+//.padding(5)
+//.overlay(Capsule(style: .continuous)
+//            .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor))
+
 private struct CardConstants {
-    static let color = Color.red
+    static let color = EmojiMemoryGame.currentEmojiTheme.themeColor
     static let aspectRatio: CGFloat = 2/3
     static let dealDuration: Double = 0.5
     static let totalDealDuration: Double = 2
