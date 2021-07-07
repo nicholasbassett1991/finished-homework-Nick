@@ -12,11 +12,17 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var game: EmojiMemoryGame
     
     @Namespace private var dealingNameSpace
-    
+
     var body: some View {
         ZStack(alignment: .bottom){
             VStack{
+                HStack {
+                    Spacer()
                 titleText
+                    Spacer()
+                pointsTotal
+                    Spacer()
+                }
                 gameBody
                 deckBody
                 Spacer()
@@ -78,7 +84,7 @@ struct EmojiMemoryGameView: View {
             }
         }
   
-        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
     }
     
     var deckBody: some View {
@@ -92,7 +98,7 @@ struct EmojiMemoryGameView: View {
             }
         }
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
         .onTapGesture {
             for card in game.cards {
             withAnimation(dealingAnimation(for: card)){
@@ -105,7 +111,7 @@ struct EmojiMemoryGameView: View {
     var titleText: some View {
         Text(EmojiMemoryGame.currentEmojiTheme.theme)
             .bold()
-            .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+            .foregroundColor(EmojiMemoryGame.currentEmojiColor)
     }
     
     var shuffle: some View {
@@ -115,16 +121,18 @@ struct EmojiMemoryGameView: View {
             }
         }
      
-        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
         .padding(5)
         .overlay(Capsule(style: .continuous)
-                    .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor, lineWidth: 5))
+                    .stroke(EmojiMemoryGame.currentEmojiColor, lineWidth: 5))
         
     }
     
     var pointsTotal: some View {
-        Text(game.points() as String)
+        Text("Points: \(game.points)")
+            .foregroundColor(.black)
     }
+    
     
     
     var newGame: some View {
@@ -134,10 +142,10 @@ struct EmojiMemoryGameView: View {
                 game.startNewGame()
             }
         }
-        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
         .padding(5)
         .overlay(Capsule(style: .continuous)
-                    .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor, lineWidth: 5))
+                    .stroke(EmojiMemoryGame.currentEmojiColor, lineWidth: 5))
     }
     
     var restart: some View {
@@ -148,10 +156,10 @@ struct EmojiMemoryGameView: View {
             }
         }
 
-        .foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
         .padding(5)
         .overlay(Capsule(style: .continuous)
-                    .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor, lineWidth: 5))
+                    .stroke(EmojiMemoryGame.currentEmojiColor, lineWidth: 5))
     }
 }
 
@@ -167,7 +175,7 @@ struct CardView: View {
         GeometryReader { geometry in
             ZStack{
                 Group{
-                if card.isConsumingBonusTime{
+                    if card.isConsumingBonusTime{
                 Pie(startAngle: Angle(degrees: 0 - 90), endAngle: Angle(degrees: 1-animatedBonusRemaining*360 - 90))
                     .onAppear(){
                         animatedBonusRemaining = card.bonusRemaining
@@ -187,6 +195,7 @@ struct CardView: View {
                     .font(Font.system(size: DrawingConstants.fontSize))
                     .scaleEffect(scale(thatFits: geometry.size))
             }
+         
             .cardify(isFaceUp: card.isFaceUp)
         }
     }
@@ -216,13 +225,13 @@ private struct DrawingConstants {
 
 
 //.font(.title)
-//.foregroundColor(EmojiMemoryGame.currentEmojiTheme.themeColor)
+//.foregroundColor(EmojiMemoryGame.currentEmojiTheme.EmojiMemoryGame.currentEmojiColor)
 //.padding(5)
 //.overlay(Capsule(style: .continuous)
-//            .stroke(EmojiMemoryGame.currentEmojiTheme.themeColor))
+//            .stroke(EmojiMemoryGame.currentEmojiTheme.EmojiMemoryGame.currentEmojiColor))
 
 private struct CardConstants {
-    static let color = EmojiMemoryGame.currentEmojiTheme.themeColor
+    static let color = EmojiMemoryGame.currentEmojiColor
     static let aspectRatio: CGFloat = 2/3
     static let dealDuration: Double = 0.5
     static let totalDealDuration: Double = 2

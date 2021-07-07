@@ -5,8 +5,7 @@
 //  Created by Nicholas Steven Bassett on 7/1/21.
 //
 
-import SwiftUI
-
+import Foundation
 
 
 
@@ -16,7 +15,7 @@ struct Themes {
     let theme: String
     let emojiContent: Array<String>
     let cardPairCount: Int
-    let themeColor: Color
+    let themeColor: String
     
     
 

@@ -29,14 +29,26 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
                 if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
-                    addPoints(points: 1)
+                    if cards[chosenIndex].hasBeenSeen && cards[potentialMatchIndex].hasBeenSeen{
+                        addPoints(points: 1)
+                    } else if !cards[chosenIndex].hasBeenSeen && !cards[potentialMatchIndex].hasBeenSeen {
+                            addPoints(points: 3)
+                        }
+                    else {
+                        addPoints(points: 2)
+                    }
                 }
                 cards[chosenIndex].isFaceUp = true
+                cards[chosenIndex].hasBeenSeen = true
+                subtractPoints(points: points, cardOne: cards[chosenIndex], cardTwo: cards[potentialMatchIndex])
             } else {
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
             }
         }
+    
     }
+    
+
     
     mutating func shuffle(){
         cards.shuffle()
@@ -46,9 +58,13 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         self.points += points
     }
     
-    var hasBeenSeen = false
+   
     
-    var isInstantMatch = false
+    mutating func subtractPoints(points:Int, cardOne: Card, cardTwo: Card){
+        if cardOne.hasBeenSeen && cardTwo.hasBeenSeen  {
+            addPoints(points: -2)
+        }
+    }
     
 
     
@@ -66,6 +82,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
     
     struct Card: Identifiable {
     
+        var hasBeenSeen = false
+        
         var isFaceUp = false {
             didSet {
                 if isFaceUp {
