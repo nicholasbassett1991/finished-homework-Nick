@@ -31,7 +31,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
                     cards[potentialMatchIndex].isMatched = true
                     if cards[chosenIndex].hasBeenSeen && cards[potentialMatchIndex].hasBeenSeen{
                         addPoints(points: 1)
-                    } else if !cards[chosenIndex].hasBeenSeen && !cards[potentialMatchIndex].hasBeenSeen {
+                    }
+                    else if cards[chosenIndex].hasBeenSeen == false && cards[potentialMatchIndex].hasBeenSeen == false {
                             addPoints(points: 3)
                         }
                     else {
@@ -84,7 +85,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
     
         var hasBeenSeen = false
         
-        var isFaceUp = false {
+        var isFaceUp = true {
             didSet {
                 if isFaceUp {
                     startUsingBonusTime()

@@ -9,11 +9,11 @@ import Foundation
 
 
 
-
 struct Themes {
+    
     let themeId: Int
-    let theme: String
-    let emojiContent: Array<String>
+    let theme: String 
+    let emojiContent: [String]
     let cardPairCount: Int
     let themeColor: String
     
@@ -29,7 +29,7 @@ struct Themes {
         ["🐝","🪱", "🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂"]
 
     static let foodEmojis =
-        ["🥮","🍱","🥟","🍙","🍦","🥧","🍿","🍰","🍨","🍚","🍢","🍡","🍨","🍧"]
+        ["🥮","🍱","🥟","🍙","🍦","🥧","🍿","🍰","🍨","🍚","🍢","🍡","🍧"]
 
     static let objectEmojis = ["🧯","📡","🪔","⚖️","📀","🕹","📱","⌚️","🪛","🔫","🗡","⚰️","📿","🔮","💊","🧽","💰","⏱"]
     

@@ -7,38 +7,6 @@
 
 import SwiftUI
 
-extension UIColor {
-    public convenience init?(hex: String) {
-        let r, g ,b ,a: CGFloat
-        
-        if hex.hasPrefix("#") {
-            let start = hex.index(hex.startIndex, offsetBy: 1)
-            let hexColor = String(hex[start...])
-            
-            if hexColor.count == 8 {
-                let scanner = Scanner(string: hexColor)
-                var hexNumber: UInt64 = 0
-                
-                if scanner.scanHexInt64(&hexNumber){
-                    r = CGFloat((hexNumber & 0xff000000) >> 24) / 255
-                    g = CGFloat((hexNumber & 0x00ff0000) >> 16) / 255
-                    b = CGFloat((hexNumber & 0x0000ff00) >> 8) / 255
-                    a = CGFloat(hexNumber & 0x000000ff) / 255
-                    
-                    self.init(red: r, green: g, blue: b, alpha: a)
-                    
-                    return
-                }
-            }
-        }
-        
-        return nil
-    }
-    
-}
-
-
-
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
@@ -66,32 +34,66 @@ extension Color {
     }
 }
 
-extension UIColor {
-    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        var red: CGFloat = 0
-        var green: CGFloat = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat = 0
-        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
-        return (red, green, blue, alpha)
+extension Collection where Element: Identifiable {
+    func index(matching element: Element) -> Self.Index? {
+        firstIndex(where: { $0.id == element.id })
     }
 }
 
-extension UIColor {
-    var color: Color {
+extension RangeReplaceableCollection where Element: Identifiable {
+    mutating func remove(_ element: Element) {
+        if let index = index(matching: element) {
+            remove(at: index)
+        }
+    }
+
+    subscript(_ element: Element) -> Element {
         get {
-            let rgbColours = self.cgColor.components
-            return Color(
-                red: Double(rgbColours![0]),
-                green: Double(rgbColours![1]),
-                blue: Double(rgbColours![2])
-            )
+            if let index = index(matching: element) {
+                return self[index]
+            } else {
+                return element
+            }
+        }
+        set {
+            if let index = index(matching: element) {
+                replaceSubrange(index...index, with: [newValue])
+            }
         }
     }
 }
 
-extension UIColor {
-    /// The SwiftUI color associated with the receiver.
-    var suColor: Color { Color(self) }
+
+extension RawRepresentable where Self: Codable {
+    public var rawValue: String {
+        if let json = try? JSONEncoder().encode(self), let string = String(data: json, encoding: .utf8) {
+            return string
+        } else {
+            return ""
+        }
+    }
+    public init?(rawValue: String) {
+        if let value = try? JSONDecoder().decode(Self.self, from: Data(rawValue.utf8)) {
+            self = value
+        } else {
+            return nil
+        }
+    }
 }
+
+extension Array where Element: Equatable {
+  func uniqueElements() -> [Element] {
+    var out = [Element]()
+
+    for element in self {
+      if !out.contains(element) {
+        out.append(element)
+      }
+    }
+
+    return out
+  }
+}
+
+
+
