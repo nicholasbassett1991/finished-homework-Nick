@@ -8,8 +8,8 @@
 import Foundation
 
 
-struct ThemesForShop: Identifiable, Codable, Hashable {
-    
+struct ThemesForShop: Codable, Hashable, Identifiable {
+
     var id: Int
     var name: String
     var emojis: [String]
@@ -23,24 +23,4 @@ struct ThemesForShop: Identifiable, Codable, Hashable {
         self.color = color
         self.numberOfPairs = numberOfPairs
     }
-    
-    
-    
-    
-    
-    
-    
-//    static var emojiShopTheme: [ThemesForShop] = [
-//        ThemesForShop(id:name: "Animals", emojis: ["🐱","🐶","🐹","🐰","🐻","🐼","🐮","🐵","🙈","🐥","🐣","🦉","🐽","🐺","🦊","🐷","🐸","🐭","🦇","🦄","🐝","🐗","🐴"], color: "#FFA500", numberOfPairs: 10),
-//        ThemesForShop(name: "Bugs", emojis: ["🐝","🪱", "🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂"], color: "#FF0000", numberOfPairs: 7),
-//        ThemesForShop(name: "Food", emojis: ["🥮","🍱","🥟","🍙","🍦","🥧","🍿","🍰","🍨","🍚","🍢","🍡","🍨","🍧"],
-//                     color: "#00FF00", numberOfPairs: 6),
-//        ThemesForShop(name: "Objects", emojis: ["🧯","📡","🪔","⚖️","📀","🕹","📱","⌚️","🪛","🔫","🗡","⚰️","📿","🔮","💊","🧽","💰","⏱"], color: "#FFC0CB",
-//                     numberOfPairs: 8),
-//        ThemesForShop(name: "Sea Life", emojis: [
-//                        "🐙","🐡","🐟","🦐","🦑","🦞","🦀","🐬","🐳","🦈","🦭","🐋","🐠"], color: "#0000FF", numberOfPairs: 9),
-//        ThemesForShop(name: "Vehicles", emojis: ["🚂","🚀","🚁","🚜", "🚘", "🚌", "🛵", "🏍", "🚍","🚛", "🛴", "🚊", "🚢", "🛺", "🚑", "🚲", "🚒", "🚕", "🚞","🚐","🚗", "🛫", "🛩", "🚓"], color: "#800080", numberOfPairs: 12)
-//  ]
-    
 }
-

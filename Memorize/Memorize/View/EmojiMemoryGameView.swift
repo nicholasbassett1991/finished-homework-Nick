@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var game: EmojiMemoryGame
-    
+
     @Namespace private var dealingNameSpace
 
     var body: some View {
@@ -109,7 +109,7 @@ struct EmojiMemoryGameView: View {
     }
     
     var titleText: some View {
-        Text(EmojiMemoryGame.currentEmojiTheme.theme)
+        Text(EmojiMemoryGame.currentEmojiTheme.name)
             .bold()
             .foregroundColor(EmojiMemoryGame.currentEmojiColor)
     }
@@ -221,14 +221,6 @@ private struct DrawingConstants {
     static let fontSize: CGFloat = 32
 }
 
-
-
-
-//.font(.title)
-//.foregroundColor(EmojiMemoryGame.currentEmojiTheme.EmojiMemoryGame.currentEmojiColor)
-//.padding(5)
-//.overlay(Capsule(style: .continuous)
-//            .stroke(EmojiMemoryGame.currentEmojiTheme.EmojiMemoryGame.currentEmojiColor))
 
 private struct CardConstants {
     static let color = EmojiMemoryGame.currentEmojiColor
