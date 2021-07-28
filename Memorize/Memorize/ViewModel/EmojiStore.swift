@@ -10,6 +10,7 @@ import SwiftUI
 
 class EmojiStore: ObservableObject {
     let name: String
+    static var themeSelected = 1
     
     @Published var themes = [ThemesForShop]() {
     didSet {
@@ -38,7 +39,7 @@ class EmojiStore: ObservableObject {
         if themes.isEmpty {
             insertTheme(named: "Animals", emojis: ["🐱","🐶","🐹","🐰","🐻","🐼","🐮","🐵","🙈","🐥","🐣","🦉","🐽","🐺","🦊","🐷","🐸","🐭","🦇","🦄","🐗","🐴"], color: "#FFA500", numberOfPairs: 3)
             insertTheme(named: "Bugs", emojis: ["🐝","🪱", "🐛","🦋","🐌","🐞","🐜","🪰","🪲","🪳","🦟","🦗","🕷","🕸","🦂"], color: "#FF0000", numberOfPairs: 3)
-            insertTheme(named: "Food", emojis: ["🥮","🍱","🥟","🍙","🍦","🥧","🍿","🍰","🍨","🍚","🍢","🍡","🍨","🍧"],color: "#00FF00", numberOfPairs: 5)
+            insertTheme(named: "Food", emojis: ["🥮","🍱","🥟","🍙","🍦","🥧","🍿","🍰","🍨","🍚","🍢","🍡","🍨","🍧"],color: "#00FF00", numberOfPairs: 3)
             insertTheme(named: "Objects", emojis: ["🧯","📡","🪔","⚖️","📀","🕹","📱","⌚️","🪛","🔫","🗡","⚰️","📿","🔮","💊","🧽","💰","⏱"], color: "#FFC0CB", numberOfPairs: 3)
             insertTheme(named: "Sea Life", emojis: [
                                     "🐙","🐡","🐟","🦐","🦑","🦞","🦀","🐬","🐳","🦈","🦭","🐋","🐠"], color: "#0000FF", numberOfPairs: 3)

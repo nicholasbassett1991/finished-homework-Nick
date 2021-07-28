@@ -10,6 +10,7 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var game: EmojiMemoryGame
+   
 
     @Namespace private var dealingNameSpace
 
@@ -39,7 +40,11 @@ struct EmojiMemoryGameView: View {
         }
         }
         .padding()
+        .onAppear() {
+            game.restart()
+        }
     }
+
     
     
     @State private var dealt = Set<Int>()
@@ -84,7 +89,7 @@ struct EmojiMemoryGameView: View {
             }
         }
   
-        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
+        .foregroundColor(Color(hex:game.selectedTheme.color))
     }
     
     var deckBody: some View {
@@ -98,7 +103,7 @@ struct EmojiMemoryGameView: View {
             }
         }
         .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
-        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
+        .foregroundColor(Color(hex:game.selectedTheme.color))
         .onTapGesture {
             for card in game.cards {
             withAnimation(dealingAnimation(for: card)){
@@ -109,9 +114,9 @@ struct EmojiMemoryGameView: View {
     }
     
     var titleText: some View {
-        Text(EmojiMemoryGame.currentEmojiTheme.name)
+        Text(game.selectedTheme.name)
             .bold()
-            .foregroundColor(EmojiMemoryGame.currentEmojiColor)
+            .foregroundColor(Color(hex:game.selectedTheme.color))
     }
     
     var shuffle: some View {
@@ -121,10 +126,10 @@ struct EmojiMemoryGameView: View {
             }
         }
      
-        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
+        .foregroundColor((Color(hex:game.selectedTheme.color)))
         .padding(5)
         .overlay(Capsule(style: .continuous)
-                    .stroke(EmojiMemoryGame.currentEmojiColor, lineWidth: 5))
+                    .stroke((Color(hex:game.selectedTheme.color)), lineWidth: 5))
         
     }
     
@@ -142,10 +147,10 @@ struct EmojiMemoryGameView: View {
                 game.startNewGame()
             }
         }
-        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
+        .foregroundColor((Color(hex:game.selectedTheme.color)))
         .padding(5)
         .overlay(Capsule(style: .continuous)
-                    .stroke(EmojiMemoryGame.currentEmojiColor, lineWidth: 5))
+                    .stroke((Color(hex:game.selectedTheme.color)), lineWidth: 5))
     }
     
     var restart: some View {
@@ -156,10 +161,10 @@ struct EmojiMemoryGameView: View {
             }
         }
 
-        .foregroundColor(EmojiMemoryGame.currentEmojiColor)
+        .foregroundColor((Color(hex:game.selectedTheme.color)))
         .padding(5)
         .overlay(Capsule(style: .continuous)
-                    .stroke(EmojiMemoryGame.currentEmojiColor, lineWidth: 5))
+                    .stroke((Color(hex:game.selectedTheme.color)), lineWidth: 5))
     }
 }
 
@@ -223,7 +228,8 @@ private struct DrawingConstants {
 
 
 private struct CardConstants {
-    static let color = EmojiMemoryGame.currentEmojiColor
+    
+//    static let color = (Color(hex:game.selectedTheme.color))
     static let aspectRatio: CGFloat = 2/3
     static let dealDuration: Double = 0.5
     static let totalDealDuration: Double = 2
@@ -234,7 +240,7 @@ private struct CardConstants {
     
     struct ContentView_Previews: PreviewProvider {
         static var previews: some View {
-            let game = EmojiMemoryGame()
+            let game = EmojiMemoryGame(selectedTheme: ThemesForShop(id: 0, name: "hello", emojis: [""], color: "hello", numberOfPairs: 5))
             game.choose(game.cards.first!)
             return EmojiMemoryGameView(game: game)
         }

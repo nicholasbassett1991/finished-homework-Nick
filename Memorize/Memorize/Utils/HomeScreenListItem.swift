@@ -76,9 +76,9 @@ struct HomeScreenListItem: View {
 
 
 struct HomeScreenListItem_Previews: PreviewProvider {
-    static var themes = EmojiStore(named: "Default").themes
+    static var themes = EmojiStore(named: "Dragon God").themes
     static var previews: some View {
-        HomeScreenListItem(theme: themes[5])
+        HomeScreenListItem(theme: themes[0])
     }
 }
 

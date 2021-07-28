@@ -24,16 +24,18 @@ struct HomeScreen: View {
             List {
                 ForEach(store.themes) { theme in
                     NavigationLink(
-                        destination: EmojiMemoryGameView(game: EmojiMemoryGame(theme: theme)),
+                        destination: EmojiMemoryGameView(game: EmojiMemoryGame(selectedTheme: theme))
+                        ,
                         label: {
                             HomeScreenListItem(theme: theme)
                         })
-                }
-                .onDelete { indexSet in
-                    store.themes.remove(atOffsets: indexSet)
+             
                 }
                 .onMove { indexSet, newOffset in
                     store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
+                }
+                .onDelete { indexSet in
+                    store.themes.remove(atOffsets: indexSet)
                 }
             }
             .navigationTitle("Card Themes")

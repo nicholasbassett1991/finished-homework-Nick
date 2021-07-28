@@ -14,9 +14,18 @@ struct EmojiThemeEditor: View {
     
     var body: some View {
         Form {
-            
+            nameSection
         }
     }
+    
+    
+    var nameSection: some View {
+        Section(header: Text("Name")) {
+            TextField("Name", text: $theme.name)
+        }
+    }
+    
+    
     
     
     
@@ -29,6 +38,6 @@ struct EmojiThemeEditor: View {
 struct EmojiThemeEditor_Previews: PreviewProvider {
     static var previews: some View {
         EmojiThemeEditor(theme:
-                            .constant(EmojiStore(named: "Default").theme(at: 0)))
+                            .constant(EmojiStore(named: "Dragon God").theme(at: 0)))
     }
 }
