@@ -11,6 +11,8 @@ struct HomeScreen: View {
     @EnvironmentObject var game: EmojiMemoryGame
     @Environment(\.presentationMode) var presentationMode
     
+    @State private var themeToAddOrEdit: ThemesForShop?
+    
     @State private var editMode: EditMode = .inactive
     
     init() {
@@ -38,17 +40,28 @@ struct HomeScreen: View {
                     store.themes.remove(atOffsets: indexSet)
                 }
             }
+            .popover(item: $themeToAddOrEdit) { theme in
+                EmojiThemeEditor(theme: $store.themes[theme]) }
+            .onDisappear {
+            }
             .navigationTitle("Card Themes")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                ToolbarItem { EditButton()
-                    
+                ToolbarItem {
+                    EditButton()
+                    }
+                ToolbarItem(placement: .navigationBarLeading){
+                    Button("Add") {
+                        themeToAddOrEdit = EmojiStore(named: "hello").theme(at: 0)
                 }
             }
         }
         .environment(\.editMode, $editMode)
     }
+}
     
+    
+    //🌁🎇🌆
 }
 
 struct HomeScreen_Previews: PreviewProvider {

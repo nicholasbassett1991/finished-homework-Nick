@@ -55,7 +55,7 @@ class EmojiStore: ObservableObject {
     }
     
     @discardableResult
-    func removePalette(at index: Int) -> Int {
+    func removeTheme(at index: Int) -> Int {
         if themes.count > 1, themes.indices.contains(index) {
             themes.remove(at: index)
         }
