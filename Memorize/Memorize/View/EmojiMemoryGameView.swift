@@ -10,6 +10,9 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var game: EmojiMemoryGame
+    @EnvironmentObject var store: EmojiStore
+    @ObservedObject var emojiThemeChecker: EmojiThemeTracker
+    
    
 
     @Namespace private var dealingNameSpace
@@ -37,15 +40,18 @@ struct EmojiMemoryGameView: View {
                     Spacer()
             }
             .padding(.horizontal)
-        }
+            }
         }
         .padding()
-        .onAppear() {
-            game.restart()
+        .onAppear {
+            if emojiThemeChecker.previousThemeCheck?.name != emojiThemeChecker.currentTheme?.name {
+                game.restart()
+            }
+        }
+        .onDisappear {
+            emojiThemeChecker.updatePreviousThemeCheck(theme: game.selectedTheme)
         }
     }
-
-    
     
     @State private var dealt = Set<Int>()
     
@@ -238,11 +244,12 @@ private struct CardConstants {
 }
     
     
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            let game = EmojiMemoryGame(selectedTheme: ThemesForShop(id: 0, name: "hello", emojis: [""], color: "hello", numberOfPairs: 5))
-            game.choose(game.cards.first!)
-            return EmojiMemoryGameView(game: game)
-        }
-    }
+//    struct ContentView_Previews: PreviewProvider {
+//        static var previews: some View {
+//            let game = EmojiMemoryGame(selectedTheme: ThemesForShop(id: 0, name: "hello", emojis: [""], color: "hello", numberOfPairs: 5, previousTheme: false))
+//            game.choose(game.cards.first!)
+//            return EmojiMemoryGameView(game: game)
+//                .environmentObject(game)
+//        }
+//    }
 

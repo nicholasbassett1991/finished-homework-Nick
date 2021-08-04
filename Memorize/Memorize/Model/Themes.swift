@@ -16,6 +16,7 @@ struct Themes {
     let emojiContent: [String]
     let cardPairCount: Int
     let themeColor: String
+    
 }
 
 

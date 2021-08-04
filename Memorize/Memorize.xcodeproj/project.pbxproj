@@ -24,6 +24,7 @@
 		E9BFA91D268E23D700E0753E /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BFA91C268E23D700E0753E /* Cardify.swift */; };
 		E9BFA920268E614600E0753E /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BFA91F268E614600E0753E /* Themes.swift */; };
 		E9BFA9222696027900E0753E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BFA9212696027900E0753E /* Extensions.swift */; };
+		E9F9CFB026BAF7EC00EB6EA5 /* EmojiThemeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F9CFAF26BAF7EC00EB6EA5 /* EmojiThemeTracker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		E9BFA91C268E23D700E0753E /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		E9BFA91F268E614600E0753E /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
 		E9BFA9212696027900E0753E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E9F9CFAF26BAF7EC00EB6EA5 /* EmojiThemeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiThemeTracker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				E9BFA916268BB33800E0753E /* EmojiMemoryGame.swift */,
 				E9B8F45226AF3A340089E69B /* EmojiStore.swift */,
+				E9F9CFAF26BAF7EC00EB6EA5 /* EmojiThemeTracker.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				E9BFA91D268E23D700E0753E /* Cardify.swift in Sources */,
 				E9AA595D26B066AD003774E7 /* HomeScreenListItem.swift in Sources */,
 				E9BFA917268BB33800E0753E /* EmojiMemoryGame.swift in Sources */,
+				E9F9CFB026BAF7EC00EB6EA5 /* EmojiThemeTracker.swift in Sources */,
 				E9AA595926B0614B003774E7 /* EmojiThemeChooser.swift in Sources */,
 				E9345032268B82EB000DEE7A /* EmojiMemoryGameView.swift in Sources */,
 				E9AA595B26B06379003774E7 /* HomeScreen.swift in Sources */,

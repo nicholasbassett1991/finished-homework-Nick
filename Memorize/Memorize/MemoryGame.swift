@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> where CardContent: Equatable{
+struct MemoryGame<CardContent>: Codable where CardContent: Equatable & Codable {
     
     private(set) var cards: Array<Card>
-    
+  
     private(set) var points: Int = 0
     
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
     get {cards.indices.filter({cards[$0].isFaceUp}).oneAndOnly }
     set {cards.indices.forEach{cards[$0].isFaceUp = ($0 == newValue) } }
     }
-    
+
     mutating func choose(_ card: Card) {
     
         if let chosenIndex = cards.firstIndex(where: { $0.id == card.id}), !cards[chosenIndex].isFaceUp,
@@ -44,7 +44,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
                 indexOfTheOneAndOnlyFaceUpCard = chosenIndex
             }
         }
-    
+        
     }
     
     mutating func shuffle(){
@@ -60,10 +60,13 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
             addPoints(points: -2)
         }
     }
+    
+
 
     init(numberOfParisOfCards: Int, createCardContent: (Int) -> CardContent){
         cards = []
 
+        
         for pairIndex in 0..<numberOfParisOfCards {
             let content: CardContent = createCardContent(pairIndex)
             cards.append(Card(content:content, id:pairIndex*2))
@@ -73,11 +76,11 @@ struct MemoryGame<CardContent> where CardContent: Equatable{
         
     }
     
-    struct Card: Identifiable {
+    struct Card: Identifiable & Codable {
     
         var hasBeenSeen = false
         
-        var isFaceUp = true {
+        var isFaceUp = false {
             didSet {
                 if isFaceUp {
                     startUsingBonusTime()

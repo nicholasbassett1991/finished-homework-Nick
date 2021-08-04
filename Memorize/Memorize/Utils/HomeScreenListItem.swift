@@ -9,12 +9,15 @@ import SwiftUI
 struct HomeScreenListItem: View {
     var theme: ThemesForShop
     @State private var emojiIndexForCarosel = 0
+    @EnvironmentObject var store: EmojiStore
+    
+
+  
     
     var body: some View {
         let shape = RoundedRectangle(cornerRadius: Cardify.DrawingConstants.cornerRadius)
         let timer = Timer.publish(every: 3, on: .current, in: .common).autoconnect()
 
-        
 
         ZStack(alignment: .leading) {
             ZStack {
@@ -30,19 +33,18 @@ struct HomeScreenListItem: View {
                         Circle()
                             .foregroundColor(Color(hex: theme.color).darker(by: 10))
                             .frame(width: 60, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        Text(theme.emojis[emojiIndexForCarosel])
+                        Text(theme.emojis.isEmpty ? "?" : theme.emojis[emojiIndexForCarosel] )
                             .onReceive(timer) { time in
                                 if emojiIndexForCarosel != theme.numberOfPairs {
-                                    emojiIndexForCarosel += 1}
+                                    emojiIndexForCarosel += 1 }
                                 else {
                                     emojiIndexForCarosel = 0
                                 }
-                
                         }
                             .font(.title)
                             .transition(rollTransition)
                             .animation(.easeInOut)
-                            .id("CurrentEmoji" + theme.emojis[emojiIndexForCarosel])
+                            .id(theme.emojis.isEmpty ? "?" : theme.emojis[emojiIndexForCarosel])
                     }
                     .frame(width: 70, height: 70)
                     .padding(5)
@@ -51,7 +53,7 @@ struct HomeScreenListItem: View {
                     Text(theme.name)
                         .font(.title)
                         .bold()
-                        Text("Number of pairs: \(theme.numberOfPairs)")
+                        Text("Number of pairs: \(theme.numberOfPairs ?? theme.emojis.count)")
                     }
                     .foregroundColor(.white)
                     .padding(.leading, 0)
@@ -62,15 +64,17 @@ struct HomeScreenListItem: View {
             }
         }
         .frame(height: 75)
+    }
     
-}
+    
     
     var rollTransition: AnyTransition {
         AnyTransition.asymmetric(insertion: .offset(x: 0, y: 15), removal: .offset(x: 0, y: -15))
     }
     
+ 
+    
 }
-
 
 
 

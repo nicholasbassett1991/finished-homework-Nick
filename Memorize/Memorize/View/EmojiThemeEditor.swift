@@ -9,19 +9,24 @@ import SwiftUI
 
 struct EmojiThemeEditor: View {
     @Binding var theme: ThemesForShop
-    @State private var bgColor = Color.white
+    @State private var bgColor: Color = Color.white
+    @State private var pairError: IdentifiableAlert?
+    
     
     
     var body: some View {
         Form {
             nameSection
             addEmojisSection
-            ColorPicker("Set theme color", selection: $bgColor, supportsOpacity: false)
+            ThemeColorPicker
             pairEditor
             removeEmojis
+         
+        }
+        .alert(item: $pairError) { pairError in
+            pairError.alert()
         }
     }
-    
     
     var nameSection: some View {
         Section(header: Text("Name")) {
@@ -36,11 +41,23 @@ struct EmojiThemeEditor: View {
             TextField("", text: $emojisToAdd)
                 .onChange(of: emojisToAdd, perform: { emojis in
                     addEmojis(emojis)
+                        
                 })
         }
     }
-
     
+    var ThemeColorPicker: some View {
+        Section(header: Text("Set Theme Color")) {
+            ColorPicker("Set theme color", selection: $bgColor, supportsOpacity: true)
+                .onChange(of: bgColor) { color in
+                    convertColorIntoTheme()
+                    print(theme)
+                }
+        }
+
+    }
+    
+  
     var removeEmojis: some View {
         Section(header: Text("Remove Emojis")) {
             let emojis = theme.emojis.joined().removingDuplicateCharacters.map {
@@ -62,14 +79,42 @@ struct EmojiThemeEditor: View {
         }
 }
 
+    @State private var numberOfPairs = ""
+    
     var pairEditor: some View {
         Section(header: Text("Number of Pairs")) {
-            TextField("10", value: $theme.numberOfPairs, formatter: NumberFormatter())
+            TextField("Number of Pairs", text: $numberOfPairs)
+                .onChange(of: numberOfPairs) { number in
+                    updateNumberOfPairs(numberOfPairs: number)
+                    print(theme)
+                }
         }
     }
     
-    func convertColorIntoTheme(_ color: Color) {
-        theme.color = UIColor(color).toHexString()
+    func convertColorIntoTheme() {
+        theme.color = UIColor(bgColor).toHex() ?? ""
+    }
+    
+    func updateNumberOfPairs(numberOfPairs: String) {
+        if let numberOfPairsConvertered = Int(numberOfPairs) {
+        if theme.emojis.count >= numberOfPairsConvertered {
+        theme.numberOfPairs = numberOfPairsConvertered
+        } else {
+            print("Not Enough Pairs")
+            pairErrorAlert(Int(numberOfPairs) ?? 1)
+
+        }
+    }
+}
+    
+    private func pairErrorAlert(_ pairs: Int){
+        pairError = IdentifiableAlert(id: "Not Enough Pairs", alert: {
+            Alert(
+                title: Text("Not Enough Pairs"),
+                message: Text("More pairs than emojis \(pairs)."),
+                dismissButton: .default(Text("OK"))
+            )
+        })
     }
     
     func addEmojis(_ emojis: String) {
@@ -81,13 +126,16 @@ struct EmojiThemeEditor: View {
         }
     }
     
-    
-  
+}
+
+struct IdentifiableAlert: Identifiable {
+    var id: String
+    var alert: () -> Alert
 }
 
 struct EmojiThemeEditor_Previews: PreviewProvider {
     static var previews: some View {
         EmojiThemeEditor(theme:
-                            .constant(EmojiStore(named: "Dragon God").theme(at: 0)))
+            .constant(EmojiStore(named: "Dragon God").theme(at: 0)))
     }
 }
