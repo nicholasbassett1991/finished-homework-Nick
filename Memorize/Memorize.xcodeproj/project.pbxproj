@@ -11,7 +11,6 @@
 		E9345032268B82EB000DEE7A /* EmojiMemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9345031268B82EB000DEE7A /* EmojiMemoryGameView.swift */; };
 		E9345034268B82ED000DEE7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9345033268B82ED000DEE7A /* Assets.xcassets */; };
 		E9345037268B82ED000DEE7A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9345036268B82ED000DEE7A /* Preview Assets.xcassets */; };
-		E9AA595926B0614B003774E7 /* EmojiThemeChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA595826B0614B003774E7 /* EmojiThemeChooser.swift */; };
 		E9AA595B26B06379003774E7 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA595A26B06379003774E7 /* HomeScreen.swift */; };
 		E9AA595D26B066AD003774E7 /* HomeScreenListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA595C26B066AD003774E7 /* HomeScreenListItem.swift */; };
 		E9AA596126B0AC36003774E7 /* EmojiThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AA596026B0AC36003774E7 /* EmojiThemeEditor.swift */; };
@@ -34,7 +33,6 @@
 		E9345033268B82ED000DEE7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9345036268B82ED000DEE7A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E9345038268B82ED000DEE7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E9AA595826B0614B003774E7 /* EmojiThemeChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiThemeChooser.swift; sourceTree = "<group>"; };
 		E9AA595A26B06379003774E7 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		E9AA595C26B066AD003774E7 /* HomeScreenListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenListItem.swift; sourceTree = "<group>"; };
 		E9AA596026B0AC36003774E7 /* EmojiThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiThemeEditor.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			isa = PBXGroup;
 			children = (
 				E9345031268B82EB000DEE7A /* EmojiMemoryGameView.swift */,
-				E9AA595826B0614B003774E7 /* EmojiThemeChooser.swift */,
 				E9AA595A26B06379003774E7 /* HomeScreen.swift */,
 				E9AA596026B0AC36003774E7 /* EmojiThemeEditor.swift */,
 			);
@@ -218,7 +215,6 @@
 				E9AA595D26B066AD003774E7 /* HomeScreenListItem.swift in Sources */,
 				E9BFA917268BB33800E0753E /* EmojiMemoryGame.swift in Sources */,
 				E9F9CFB026BAF7EC00EB6EA5 /* EmojiThemeTracker.swift in Sources */,
-				E9AA595926B0614B003774E7 /* EmojiThemeChooser.swift in Sources */,
 				E9345032268B82EB000DEE7A /* EmojiMemoryGameView.swift in Sources */,
 				E9AA595B26B06379003774E7 /* HomeScreen.swift in Sources */,
 				E9345030268B82EB000DEE7A /* MemorizeApp.swift in Sources */,
